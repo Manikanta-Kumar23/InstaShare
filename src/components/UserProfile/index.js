@@ -132,7 +132,7 @@ class UserProfile extends Component {
             <div className="prof-posts">
               <div className="grid-card">
                 <BsGrid3X3 size={17} />
-                <p className="psts">Posts</p>
+                <h1 className="psts">Posts</h1>
               </div>
               {profileList.posts.length === 0 ? (
                 <div className="no-post">
@@ -161,7 +161,7 @@ class UserProfile extends Component {
               className="retry-button"
               type="button"
             >
-              Retry
+              Try again
             </button>
           </div>
         )

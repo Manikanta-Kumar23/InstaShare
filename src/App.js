@@ -6,9 +6,9 @@ import Cookies from 'js-cookie'
 
 import SearchContext from './components/SearchContext'
 
-import Home from './components/Home'
-
 import Login from './components/Login'
+
+import Home from './components/Home'
 
 import NotFound from './components/NotFound'
 
@@ -22,11 +22,22 @@ import AuthenticateUser from './components/AuthenticateUser'
 
 import './App.css'
 
-class App extends Component {
-  state = {searchInput: '', searchList: []}
+const apiStatus = {
+  initial: '',
+  success: 'SUCCESS',
+  fail: 'FAIL',
+  inProgress: 'IN_PROGRESS',
+}
 
-  onSearch = async () => {
+class App extends Component {
+  state = {searchInput: '', searchList: [], isLoading: apiStatus.initial}
+
+  onSearchValue = async () => {
     const {history} = this.props
+    history.push('/search-results')
+    this.setState({
+      isLoading: apiStatus.inProgress,
+    })
     const {searchInput} = this.state
     const url = `https://apis.ccbp.in/insta-share/posts?search=${searchInput}`
     const jwtToken = Cookies.get('jwt_token')
@@ -47,13 +58,64 @@ class App extends Component {
         userId: each.user_id,
         userName: each.user_name,
         profilePic: each.profile_pic,
-        isLike: false,
+        isLike: true,
       }))
       this.setState({
         searchList: updateData,
+        isLoading: apiStatus.success,
+      })
+    } else {
+      this.setState({
+        isLoading: apiStatus.fail,
       })
     }
-    history.push('/search-results')
+  }
+
+  onLike = async id => {
+    const {searchList} = this.state
+    const index = searchList.findIndex(each => each.postId === id)
+    const likeStatus = searchList[index].isLike
+    const details = {like_status: likeStatus}
+    const url = `https://apis.ccbp.in/insta-share/posts/${id}/like`
+    const jwtToken = Cookies.get('jwt_token')
+    const options = {
+      method: 'POST',
+      headers: {Authorization: `Bearer ${jwtToken}`},
+      body: JSON.stringify(details),
+    }
+    const res = await fetch(url, options)
+    const data = await res.json()
+    if (data.message !== 'Post has been liked') {
+      this.setState(prevState => ({
+        searchList: prevState.searchList.map(each => {
+          if (each.postId === id) {
+            return {
+              ...each,
+              isLike: !each.isLike,
+              likesCount: each.likesCount - 1,
+            }
+          }
+          return each
+        }),
+      }))
+    } else {
+      this.setState(prevState => ({
+        searchList: prevState.searchList.map(each => {
+          if (each.postId === id) {
+            return {
+              ...each,
+              isLike: !each.isLike,
+              likesCount: each.likesCount + 1,
+            }
+          }
+          return each
+        }),
+      }))
+    }
+  }
+
+  searchProfile = () => {
+    this.onSearchValue()
   }
 
   searchValue = event => {
@@ -63,14 +125,17 @@ class App extends Component {
   }
 
   render() {
-    const {searchInput, searchList} = this.state
+    const {searchInput, searchList, isLoading} = this.state
     return (
       <SearchContext.Provider
         value={{
           searchInput,
-          onSearch: this.onSearch,
+          onSearch: this.onSearchValue,
           searchValue: this.searchValue,
           searchList,
+          isLoading,
+          searchProfile: this.searchProfile,
+          onLike: this.onLike,
         }}
       >
         <Switch>

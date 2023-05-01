@@ -6,6 +6,8 @@ import Loader from 'react-loader-spinner'
 
 import {BsGrid3X3} from 'react-icons/bs'
 
+import {BiCamera} from 'react-icons/bi'
+
 import Header from '../Header'
 
 import MyStories from '../MyStories'
@@ -124,14 +126,27 @@ class MyProfile extends Component {
             <div className="prof-posts">
               <div className="grid-card">
                 <BsGrid3X3 size={17} />
-                <p className="psts">Posts</p>
+                <h1 className="psts">Posts</h1>
               </div>
               <ul className="psts-list">
-                {profileList.posts.map(each => (
-                  <li className="pst-crd" key={each.id}>
-                    <img alt="my post" className="post-pic" src={each.image} />
-                  </li>
-                ))}
+                {profileList.posts.length === 0 ? (
+                  <div className="no-post">
+                    <div className="camera">
+                      <BiCamera />
+                    </div>
+                    <h1 className="no-psts">No Posts Yet</h1>
+                  </div>
+                ) : (
+                  profileList.posts.map(each => (
+                    <li className="pst-crd" key={each.id}>
+                      <img
+                        alt="my post"
+                        className="post-pic"
+                        src={each.image}
+                      />
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </div>
@@ -150,7 +165,7 @@ class MyProfile extends Component {
               className="retry-button"
               type="button"
             >
-              Retry
+              Try again
             </button>
           </div>
         )

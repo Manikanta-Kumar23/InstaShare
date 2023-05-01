@@ -32,12 +32,12 @@ const PostsFeed = props => {
       <img alt="post" className="post-img" src={list.imgUrl} />
       <div className="comment-card">
         <div className="btns-card">
-          {list.isLike === true ? (
+          {list.isLike === false ? (
             <button
               onClick={liked}
               className="like-btn"
               type="button"
-              data-testid="likeIcon"
+              data-testid="unLikeIcon"
             >
               <FcLike size={23} />
             </button>
@@ -46,7 +46,7 @@ const PostsFeed = props => {
               onClick={liked}
               className="like-btn"
               type="button"
-              data-testid="unlikeIcon"
+              data-testid="likeIcon"
             >
               <BsHeart size={23} />
             </button>

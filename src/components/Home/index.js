@@ -2,8 +2,6 @@ import {Component} from 'react'
 
 import Cookies from 'js-cookie'
 
-import {TiWarning} from 'react-icons/ti'
-
 import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
@@ -86,7 +84,7 @@ class Home extends Component {
         userId: each.user_id,
         userName: each.user_name,
         profilePic: each.profile_pic,
-        isLike: false,
+        isLike: true,
       }))
       this.setState({
         postList: updateData,
@@ -103,7 +101,7 @@ class Home extends Component {
     const {postList} = this.state
     const index = postList.findIndex(each => each.postId === id)
     const likeStatus = postList[index].isLike
-    const details = {like_status: !likeStatus}
+    const details = {like_status: likeStatus}
     const url = `https://apis.ccbp.in/insta-share/posts/${id}/like`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -113,14 +111,14 @@ class Home extends Component {
     }
     const res = await fetch(url, options)
     const data = await res.json()
-    if (data.message === 'Post has been liked') {
+    if (data.message !== 'Post has been liked') {
       this.setState(prevState => ({
         postList: prevState.postList.map(each => {
           if (each.postId === id) {
             return {
               ...each,
               isLike: !each.isLike,
-              likesCount: each.likesCount + 1,
+              likesCount: each.likesCount - 1,
             }
           }
           return each
@@ -133,7 +131,7 @@ class Home extends Component {
             return {
               ...each,
               isLike: !each.isLike,
-              likesCount: each.likesCount - 1,
+              likesCount: each.likesCount + 1,
             }
           }
           return each
@@ -164,12 +162,14 @@ class Home extends Component {
       case apiStatus.fail:
         return (
           <div className="story-fail">
-            <div className="stry-warn">
-              <TiWarning size={22} />
-            </div>
+            <img
+              alt="failure view"
+              className="stry-warn"
+              src="https://res.cloudinary.com/djwve85r0/image/upload/v1682941920/alert-triangle_cnlkly.png"
+            />
             <p className="fail-pra">Something went wrong. Please try again</p>
             <button onClick={this.retryStry} className="rty-btn" type="button">
-              Retry
+              Try again
             </button>
           </div>
         )
@@ -198,16 +198,18 @@ class Home extends Component {
       case apiStatus.fail:
         return (
           <div className="home-fail">
-            <div className="warn">
-              <TiWarning size={44} />
-            </div>
+            <img
+              alt="failure view"
+              className="stry-warn"
+              src="https://res.cloudinary.com/djwve85r0/image/upload/v1682941920/alert-triangle_cnlkly.png"
+            />
             <p className="fail-para">Something went wrong. Please try again</p>
             <button
               onClick={this.retryPost}
               className="retry-btn"
               type="button"
             >
-              Retry
+              Try again
             </button>
           </div>
         )
