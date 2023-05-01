@@ -1,0 +1,31 @@
+.story-list {
+  width: 80%;
+}
+.stry-crd {
+  border-radius: 35px;
+  width: 15px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 35px;
+  background: #ffffff;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #e5e5e5;
+  padding: 2px;
+}
+@media (min-width: 768px) {
+  .story-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}

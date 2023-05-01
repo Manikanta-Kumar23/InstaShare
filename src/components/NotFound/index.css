@@ -1,0 +1,81 @@
+.notfound-card {
+  background-color: #fafafa;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.notfound-icon {
+  width: 157px;
+  height: 173px;
+  padding: 3px;
+}
+@media (min-width: 768px) {
+  .notfound-icon {
+    width: 269px;
+    height: 297px;
+  }
+}
+.notfound-head {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 48px;
+  text-align: center;
+  color: #262626;
+  width: 144px;
+  height: 32px;
+}
+@media (min-width: 768px) {
+  .notfound-head {
+    width: 230px;
+    height: 48px;
+    font-size: 32px;
+  }
+}
+.notfound-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  color: #989898;
+  width: 312px;
+  height: 72px;
+}
+@media (min-width: 768px) {
+  .notfound-para {
+    width: 501px;
+    height: 64px;
+    font-size: 20px;
+  }
+}
+
+.notfound-button {
+  width: 114px;
+  height: 32px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff;
+  background: #4094ef;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  border-width: 0px;
+  margin-top: 13px;
+}
+@media (min-width: 768px) {
+  .notfound-button {
+    width: 141px;
+    border-radius: 12px;
+    height: 48px;
+    line-height: 24px;
+    font-size: 14px;
+  }
+}

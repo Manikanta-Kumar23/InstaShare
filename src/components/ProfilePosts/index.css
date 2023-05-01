@@ -1,0 +1,22 @@
+.psts-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.pst-crd {
+  height: 118px;
+  width: 118px;
+  margin: 7px;
+}
+@media (min-width: 768px) {
+  .pst-crd {
+    width: 330px;
+    height: 330px;
+    margin: 13px;
+  }
+}
+.post-pic {
+  width: 100%;
+}

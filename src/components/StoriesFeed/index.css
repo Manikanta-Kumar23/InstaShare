@@ -1,0 +1,34 @@
+.stry-list {
+  width: 80%;
+}
+.stry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 105px;
+  height: 105px;
+}
+.stry-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 35px;
+  padding: 2px;
+  background: linear-gradient(#e20337, #c60188, #7700c3);
+}
+.user {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #262626;
+  width: 75px;
+  height: 24px;
+}
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
